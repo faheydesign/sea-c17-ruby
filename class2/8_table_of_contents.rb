@@ -10,13 +10,10 @@
 # Chapter 2:  Numbers                        page  9
 # Chapter 3:  Letters                        page 13
 
-puts ' '
-line_width = 51
+puts
+line_width = 50
 puts 'Table of Contents'.center(line_width)
-puts ' '
-puts 'Chapter 1:'.ljust(line_width/4) + 'Getting Started'.ljust(line_width/1.5) + 'page '.ljust(line_width/25) +  "1".rjust(line_width/25)
-puts 'Chapter 2:'.ljust(line_width/4) + 'Numbers'.ljust(line_width/1.5) + 'page '.ljust(line_width/25) + '9'.rjust(line_width/25)
-puts 'Chapter 3:'.ljust(line_width/4) + 'Letters'.ljust(line_width/1.5) + 'page '.ljust(line_width/25) + '13'.rjust(line_width/25)
-
-
-
+puts
+puts 'Chapter 1:  Getting Started'.ljust(30) + 'page  1'.rjust(20)
+puts 'Chapter 2:  Numbers'.ljust(30)         + 'page  9'.rjust(20)
+puts 'Chapter 3:  Letters'.ljust(30)         + 'page 13'.rjust(20)

@@ -2,4 +2,4 @@
 # 4 points
 # How many hours are in a year?
 
-puts 364 * 24
+puts 365 * 24

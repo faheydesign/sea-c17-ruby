@@ -7,4 +7,4 @@
 puts "What is your favorite number?"
 num = gets.chomp
 num = 1 + num.to_f
-puts "Don't you think " + num + " is a better number?" 
+puts "Don't you think " + num.to_s + " is a better number?"

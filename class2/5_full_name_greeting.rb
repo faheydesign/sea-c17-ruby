@@ -10,4 +10,4 @@ middle = gets.chomp
 puts "What is your last name?"
 last = gets.chomp
 
-puts "Great to meet you " + first.capitalize! + ' ' + middle.capitalize! + ' ' + last.capitalize!
+puts "Great to meet you " + first.capitalize + ' ' + middle.capitalize + ' ' + last.capitalize
