@@ -63,52 +63,41 @@
 #     "a"   Starts at end of a file, if it exists, otherwise creates a new file
 #           for writing.
 
-# your code here
-require "yaml"
+abort "Usage 2_build_a_shuffled_playlist_extended.rb PLAYLIST" unless ARGV.first
 
-playlist = ARGV[0].to_s
-song_names = Dir["songs/*.{mp3,m4a}"].shuffle
+def build_playlist(file_name, mode, action)
+  songs = Dir["songs/*.{mp3,m4a}"].shuffle
 
+  File.open(file_name, mode) { |f| f.write songs.join("\n") + "\n" }
 
-def create_playlist song_names, playlist, activity
-  if !playlist.end_with?(".m3u")
-    playlist += ".m3u"
-  end
-  if activity == "Created" || activity == "Overwrote"
-    mode = "w"
-  else
-    mode = "a"
-  end
-  File.open playlist, mode do |p|
-    p.write(song_names.to_yaml)
-  end
-  puts "=> #{activity} #{playlist} with #{playlist.length} songs"
+  "=> #{action} #{file_name} with #{songs.size} songs"
 end
 
-while true
-  if playlist == ""
-    puts "Usage: 2_build_a_shuffled_playlist_extended.rb PLAYLIST"
-    break
-  else
-    puts "=> Build a shuffled playlist"
-    if File.exists?(playlist + '.m3u')
-      puts "=> WARNING: #{playlist}.m3u already exists"
-      puts "=> (c)ancel, (o)verwrite, or (a)ppend >"
-      answer = STDIN.gets.chomp
+puts "=> Build a shuffled playlist"
 
-      if answer == "c"
-        puts "Canceled"
-        break
-      elsif answer == "o"
-        create_playlist song_names, playlist, "Overwrote"
-        break
-      elsif answer == "a"
-        create_playlist song_names, playlist, "Appended"
-        break
-      end
-    else
-        create_playlist song_names, playlist, "Created"
-        break
-    end
+file_name = ARGV.first
+file_name += ".m3u" unless file_name.end_with?(".m3u")
+
+unless File.exists?(file_name)
+  puts build_playlist(file_name, "w", "Created")
+  exit
+end
+
+puts "=> WARNING: #{file_name} already exists"
+
+loop do
+  print "=> (c)ancel, (o)verwrite, or (a)ppend > "
+  input = $stdin.gets.chomp
+
+  abort "=> Canceled" if input == "c"
+
+  if input == "o"
+    puts build_playlist(file_name, "w", "Overwrote")
+    exit
+  elsif input == "a"
+    puts build_playlist(file_name, "a", "Appended")
+    exit
+  else
+    puts "=> Invalid choice '#{input}'"
   end
 end

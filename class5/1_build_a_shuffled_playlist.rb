@@ -32,18 +32,15 @@
 #
 #     Dir["code/*.{rb,js}"]  #=> ["code/file1.rb", "code/file2.js"]
 
-require "yaml"
-song_names = Dir["songs/*.{mp3,m4a}"].shuffle
+def create_playlist(file_name)
+  songs = Dir["songs/*.{mp3,m4a}"].shuffle
 
-def create_playlist song_names, playlist
-  playlist += ".m3u"
-  File.open playlist, "w" do |p|
-    p.write(song_names.to_yaml)
+  File.open(file_name, "w") do |f|
+    songs.each { |song| f.write song + "\n"}
   end
-  puts "Created #{playlist} with #{playlist.length} songs"
+
+  "=> Created #{file_name} with #{songs.length} songs"
 end
 
-puts "What is the name of your playlist?"
-playlist = gets.chomp.downcase
-
-create_playlist song_names, playlist
+puts "=> Build a shuffled playlist"
+puts create_playlist("playlist.m3u")
