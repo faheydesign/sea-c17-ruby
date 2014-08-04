@@ -36,22 +36,17 @@ class OrangeTree
     @fruit = fruit
   end
 
-  def fruit()
-    return @fruit
-  end
-
-  def ==(other)
-    self.fruit == other.fruit
+  def fruit
+    @fruit
   end
 
   def pick!(amount = 1)
+    return nil if fruit < amount
+    @fruit -= amount
+  end
 
-    if @fruit >= amount
-      @fruit = @fruit - amount
-    else
-      nil
-    end
-
+  def ==(other)
+    fruit == other.fruit
   end
 end
 

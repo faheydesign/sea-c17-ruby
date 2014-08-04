@@ -37,18 +37,13 @@ class OrangeTree
     @fruit = 50
   end
 
-  def fruit()
-    return @fruit
+  def fruit
+    @fruit
   end
 
   def pick!(amount = 1)
-
-    if @fruit >= amount
-      @fruit = @fruit - amount
-    else
-      nil
-    end
-
+    return nil if fruit < amount
+    @fruit -= amount
   end
 end
 
