@@ -89,7 +89,6 @@
 
 
 def arabic_number(num)
-
   num = num.upcase
   start = 0
   finish = num.size - 1
@@ -98,44 +97,43 @@ def arabic_number(num)
   test = ""
 
   numerals_to_arabic_number = {
-  "M"  => 1000,
-  "CM" => 900,
-  "D"  => 500,
-  "CD" => 400,
-  "C"  => 100,
-  "XC" => 90,
-  "L"  => 50,
-  "XL" => 40,
-  "X"  => 10,
-  "IX" => 9,
-  "V"  => 5,
-  "IV" => 4,
-  "I"  => 1
-}
+    "M"  => 1000,
+    "CM" => 900,
+    "D"  => 500,
+    "CD" => 400,
+    "C"  => 100,
+    "XC" => 90,
+    "L"  => 50,
+    "XL" => 40,
+    "X"  => 10,
+    "IX" => 9,
+    "V"  => 5,
+    "IV" => 4,
+    "I"  => 1
+  }
 
-  numerals_to_arabic_number.each do |k, v|
+  numerals_to_arabic_number.each do |key, value|
     test = num[start..finish]
-    if(test.size >= 1)
-      slice = test.cut(k)
-      if slice != ""
+
+    if test.size >= 1
+      slice = test.cut(key)
+
+      unless slice.empty?
         if slice.to_i > 1
-          arabic_num += v * slice.size
+          arabic_num += value * slice.size
         else
-          arabic_num += v
+          arabic_num += value
         end
+
         start += slice.size
       end
     end
   end
-  if test.empty?
-    return arabic_num
-  else
-    puts "Invalid roman numeral '#{num}'"
-  end
 
+  return "Invalid roman numeral '#{num}'" unless test.empty?
+
+  arabic_num
 end
-
-
 
 class String
   def cut(str)
@@ -145,11 +143,6 @@ end
 
 input = ARGV.first
 
-if input.nil?
-  puts "Usage: 5_arabic_numbers.rb ROMAN_NUMERAL"
-  exit
-end
+abort "Usage: 5_arabic_numbers.rb ROMAN_NUMERAL" if input.nil?
 
 puts arabic_number(input)
-
-

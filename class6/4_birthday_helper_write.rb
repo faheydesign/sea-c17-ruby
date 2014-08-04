@@ -43,34 +43,23 @@
 
 require 'yaml'
 
-name = ARGV[0].capitalize
+name = ARGV[0]
 year = ARGV[1].to_i
 month = ARGV[2].to_i
 day = ARGV[3].to_i
 
-if name.nil? || year == 0 || month == 0 || day == 0
-  puts "Usage: 4_birthday_helper_write.rb NAME YEAR MONTH DAY"
-  exit
+unless name && year && month && day
+  abort "Usage: 4_birthday_helper_write.rb NAME YEAR MONTH DAY"
 end
 
-birth_dates = File.read("birth_dates.yml")
-birthday = YAML.load(birth_dates)[name]
+name = name.capitalize
 
-if birthday.nil?
-  birth_date = Time.utc(year, month, day)
+birth_dates = YAML.load(File.read('birth_dates.yml'))
 
-  File.open("birth_dates.yml", "a") do |file|
-    file.write "#{name}: #{birth_date.utc}"
-  end
-  puts "Birthday #{birth_date} saved for #{name}"
-else
-  birthdays = YAML.load(birth_dates) # storing birthdays in an array
-  birthdays[name] =  Time.new(year, month, day).utc # updating value
+birth_dates[name] = Time.utc(year, month, day)
 
-  File.open("birth_dates.yml", "w") do |file|
-    file.write(YAML.dump(birthdays))
-  end
-
-  puts "Birthday #{birthdays[name]} saved for #{name}"
-
+File.open("birth_dates.yml", "w") do |file|
+  file.write YAML.dump(birth_dates)
 end
+
+puts "Birthday #{birth_dates[name]} saved for #{name}"

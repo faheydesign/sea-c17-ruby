@@ -64,14 +64,14 @@ month = ARGV[1].to_i
 day = ARGV[2].to_i
 
 if year == 0 || month == 0 || day == 0
-  puts "Usage: 2_happy_birthday.rb YEAR MONTH DAY"
-  exit
+  abort "Usage: 2_happy_birthday.rb YEAR MONTH DAY"
 end
 
 birthday = Time.utc(year, month, day)
 now = Time.new
 birth_seconds = now.utc - birthday
 years = birth_seconds.to_i / 31557600
-puts "The birthdate is #{birthday}"
-years.times {puts "CHEER!"}
 
+puts "The birthdate is #{birthday}"
+
+years.times { puts "CHEER!" }
