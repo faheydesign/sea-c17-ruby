@@ -15,13 +15,13 @@
 # Chapter 3:  Letters                        page 13
 
 chapters = [
-  ['1','Getting Started','1'],
-  ['2','Numbers','9'],
-  ['3','Letters','13']
+  ["Chapter 1:  Getting Started", "page  1"],
+  ["Chapter 2:  Numbers",         "page  9"],
+  ["Chapter 3:  Letters",         "page 13"]
  ]
 
- puts 'Table of Contents'.center(50)
+ puts "Table of Contents".center(50)
 
 chapters.each do |chapter|
-  puts 'Chapter ' + chapter[0] + ':  ' + chapter[1].ljust(42) + ('page  ' + chapter[2]).ljust(50)
+  puts chapter.first.ljust(30) + chapter.last.rjust(20)
 end

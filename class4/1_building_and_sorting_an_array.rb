@@ -30,14 +30,13 @@
 
 puts "Give me some words, and I will sort them:"
 
-while true
-  words = []
+words = []
+
+loop do
   answer = gets.chomp.downcase
-  if ( answer != '')
-    words.push answer
-  else
-    puts 'Sweet, Here they are, sorted:'
-    puts words.sort
-    break
-  end
+  break if answer == ""
+  words.push(answer)
 end
+
+puts 'Sweet, Here they are, sorted:'
+puts words.sort

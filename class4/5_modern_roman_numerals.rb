@@ -23,9 +23,23 @@
 #   IX
 
 def modern_roman_numeral(num)
-  roman_dict = [["M", 1000],["CM", 900],["D", 500],["CD", 400],["C", 100],["XC", 90],["L", 50],["XL", 40],["X", 10],["IX", 9],["V", 5],["IV", 5],["I", 1]]
+  roman_dict = [
+    ["M", 1000],
+    ["CM", 900],
+    ["D", 500],
+    ["CD", 400],
+    ["C", 100],
+    ["XC", 90],
+    ["L", 50],
+    ["XL", 40],
+    ["X", 10],
+    ["IX", 9],
+    ["V", 5],
+    ["IV", 4],
+    ["I", 1]
+  ]
+
   roman = ""
-  puts "Enter a number between 1 and 3000"
 
   roman_dict.each do |value|
     if (num >= value[1])
@@ -33,9 +47,9 @@ def modern_roman_numeral(num)
       num = num % value[1]
     end
   end
-  return roman
-end
 
+  roman
+end
 
 input = ARGV[0].to_i
 
