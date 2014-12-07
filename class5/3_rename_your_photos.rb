@@ -44,23 +44,19 @@
 #     be a file path.
 
 require "fileutils"
-require "yaml"
 
 source = ARGV[0].to_s
 target = ARGV[1].to_s
 
-
-
-while true
-  if source == "" || target == ""
-    puts "Usage: 3_rename_your_photos.rb SOURCE TARGET"
-    break
-  else
-    photos = Dir["#{source}/*.jpg"]
-    photos.each do |photo|
-      FileUtils.copy_file(photo, "#{target}/#{File.basename(photo, '.jpg')}_#{File.size(photo)}.jpg")
-    end
-  end
-  puts "=> Copied #{photos.length} photos from #{source} to #{target}"
+if source == "" || target == ""
+  puts "Usage: 3_rename_your_photos.rb SOURCE TARGET"
   break
 end
+
+photos = Dir["#{source}/*.jpg"]
+
+photos.each do |photo|
+  FileUtils.copy_file(photo, "#{target}/#{File.basename(photo, '.jpg')}_#{File.size(photo)}.jpg")
+end
+
+puts "=> Copied #{photos.length} photos from #{source} to #{target}"

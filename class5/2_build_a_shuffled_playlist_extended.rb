@@ -63,52 +63,50 @@
 #     "a"   Starts at end of a file, if it exists, otherwise creates a new file
 #           for writing.
 
-# your code here
-require "yaml"
-
 playlist = ARGV[0].to_s
 song_names = Dir["songs/*.{mp3,m4a}"].shuffle
 
+def create_playlist(song_names, playlist, activity)
+  playlist += ".m3u" unless playlist.end_with?(".m3u")
 
-def create_playlist song_names, playlist, activity
-  if !playlist.end_with?(".m3u")
-    playlist += ".m3u"
-  end
   if activity == "Created" || activity == "Overwrote"
     mode = "w"
   else
     mode = "a"
   end
-  File.open playlist, mode do |p|
-    p.write song_names.join("\n")
+
+  File.open(playlist, mode) do |p|
+    p.write song_names.join("\n") + "\n"
   end
+
   puts "=> #{activity} #{playlist} with #{song_names.length} songs"
 end
 
-while true
+loop do
   if playlist == ""
     puts "Usage: 2_build_a_shuffled_playlist_extended.rb PLAYLIST"
     break
-  else
-    puts "=> Build a shuffled playlist"
-    if File.exists?(playlist + '.m3u')
-      puts "=> WARNING: #{playlist}.m3u already exists"
-      puts "=> (c)ancel, (o)verwrite, or (a)ppend >"
-      answer = STDIN.gets.chomp
+  end
 
-      if answer == "c"
-        puts "=> Canceled"
-        break
-      elsif answer == "o"
-        create_playlist song_names, playlist, "Overwrote"
-        break
-      elsif answer == "a"
-        create_playlist song_names, playlist, "Appended"
-        break
-      end
-    else
-        create_playlist song_names, playlist, "Created"
-        break
+  puts "=> Build a shuffled playlist"
+
+  if File.exists?(playlist + '.m3u')
+    puts "=> WARNING: #{playlist}.m3u already exists"
+    puts "=> (c)ancel, (o)verwrite, or (a)ppend >"
+    answer = STDIN.gets.chomp
+
+    if answer == "c"
+      puts "=> Canceled"
+      break
+    elsif answer == "o"
+      create_playlist(song_names, playlist, "Overwrote")
+      break
+    elsif answer == "a"
+      create_playlist(song_names, playlist, "Appended")
+      break
     end
+  else
+    create_playlist(song_names, playlist, "Created")
+    break
   end
 end
